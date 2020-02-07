@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+    <servlet>
+        <servlet-name>AddMovie</servlet-name>
+        <servlet-class>controllers.AddMovie</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListMovie</servlet-name>
+        <servlet-class>controllers.ListMovie</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchMovie</servlet-name>
+        <servlet-class>controllers.SearchMovie</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddMovie</servlet-name>
+        <url-pattern>/AddMovie</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListMovie</servlet-name>
+        <url-pattern>/ListMovie</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchMovie</servlet-name>
+        <url-pattern>/SearchMovie</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>ListMovie</welcome-file>
+    </welcome-file-list>
+</web-app>
