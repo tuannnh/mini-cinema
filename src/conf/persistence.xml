@@ -7,7 +7,7 @@
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://hungtuan.me:3306/hungtuan_movie"/>
       <property name="javax.persistence.jdbc.user" value="hungtuan_movie"/>
-      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.password" value="12@Diiufm"/>
     </properties>
   </persistence-unit>
