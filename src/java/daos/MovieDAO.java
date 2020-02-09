@@ -37,9 +37,9 @@ public class MovieDAO implements Serializable {
         return result;
     }
 
-    public void addMovie(String title, String image, String link) throws Exception {
+    public void addMovie(String title, String image, String link, String category) throws Exception {
         EntityManager em = emf.createEntityManager();
-        Movie newMovie = new Movie(title, image, link);
+        Movie newMovie = new Movie(title, image, link, category);
         em.getTransaction().begin();
         em.persist(newMovie);
         em.getTransaction().commit();

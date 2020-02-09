@@ -22,14 +22,15 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author tuannnh
  */
 @Entity
-@Table(name = "tbl_movie", catalog = "hungtuan_movie", schema = "")
+@Table(name = "tbl_movie", catalog = "MovieDB", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Movie.findAll", query = "SELECT m FROM Movie m"),
     @NamedQuery(name = "Movie.findById", query = "SELECT m FROM Movie m WHERE m.id = :id"),
     @NamedQuery(name = "Movie.findByTitle", query = "SELECT m FROM Movie m WHERE m.title = :title"),
     @NamedQuery(name = "Movie.findByImage", query = "SELECT m FROM Movie m WHERE m.image = :image"),
-    @NamedQuery(name = "Movie.findByLink", query = "SELECT m FROM Movie m WHERE m.link = :link")})
+    @NamedQuery(name = "Movie.findByLink", query = "SELECT m FROM Movie m WHERE m.link = :link"),
+    @NamedQuery(name = "Movie.findByCategory", query = "SELECT m FROM Movie m WHERE m.category = :category")})
 public class Movie implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,7 +40,7 @@ public class Movie implements Serializable {
     @Column(name = "id", nullable = false)
     private Long id;
     @Basic(optional = false)
-    @Column(name = "title", nullable = false, length = 150)
+    @Column(name = "title", nullable = false, length = 255)
     private String title;
     @Basic(optional = false)
     @Column(name = "image", nullable = false, length = 255)
@@ -47,6 +48,9 @@ public class Movie implements Serializable {
     @Basic(optional = false)
     @Column(name = "link", nullable = false, length = 255)
     private String link;
+    @Basic(optional = false)
+    @Column(name = "category", nullable = false, length = 255)
+    private String category;
 
     public Movie() {
     }
@@ -55,17 +59,20 @@ public class Movie implements Serializable {
         this.id = id;
     }
 
-    public Movie(Long id, String title, String image, String link) {
+    public Movie(Long id, String title, String image, String link, String category) {
         this.id = id;
         this.title = title;
         this.image = image;
         this.link = link;
+        this.category = category;
     }
 
-    public Movie(String title, String image, String link) {
+    public Movie(String title, String image, String link, String category) {
+
         this.title = title;
         this.image = image;
         this.link = link;
+        this.category = category;
     }
 
     public Long getId() {
@@ -98,6 +105,14 @@ public class Movie implements Serializable {
 
     public void setLink(String link) {
         this.link = link;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     @Override

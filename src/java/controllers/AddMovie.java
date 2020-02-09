@@ -33,8 +33,9 @@ public class AddMovie extends HttpServlet {
             String title = request.getParameter("title");
             String image = request.getParameter("image");
             String link = request.getParameter("link");
+            String category = request.getParameter("category");
             MovieDAO dao = new MovieDAO();
-            dao.addMovie(title, image, link);
+            dao.addMovie(title, image, link, category);
         } catch (Exception e) {
             System.out.println(e);
         } finally {

@@ -26,6 +26,7 @@
 
         <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
         <link href="assets/css/paper-kit.css?v=2.3.0" rel="stylesheet" />
+        <link href="assets/css/gallery-filter.css" rel="stylesheet" />
         <!-- CSS Just for demo purpose, don't include it in your project -->
     </head>
     <body class="search-page sidebar-collapse">
@@ -57,6 +58,8 @@
             </div>
         </nav>
 
+
+
         <div id="new-movie" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content ">
@@ -69,6 +72,13 @@
                             <input name="image" type="text" class="form-control" placeholder="https://"><br/>
                             <label>Movie Direct Link</label>
                             <input name="link" type="text" class="form-control " placeholder="https://"><br/>
+                            <label>Category</label>
+                            <select name="category">
+                                <option value="Action">Action</option>
+                                <option value="Horror">Horror</option>
+                                <option value="Comedy">Comedy</option>
+                                <option value="Animation">Animation</option>
+                            </select><br/>
                             <input class="btn btn-danger btn-lg btn-round" type="submit" name="action" value="New">
                         </form>
                     </div>
@@ -78,6 +88,8 @@
         </div>
 
         <!-- End Navbar -->
+
+
 
 
         <div class="wrapper">
@@ -94,64 +106,92 @@
                             </div>
                         </form>
 
+                        <div class="movie-container">
 
-                        <div class="row">
-                            <div class="col-md-6 ml-auto mr-auto text-center title">
-                                <h2>Choose movie</h2>
-                            </div>
-                        </div>
-
-                        <div class="article"> 
                             <div class="row">
-                                <c:if test="${empty requestScope.LIST}">
-                                    <div class="col-md-6 ml-auto mr-auto text-center title">
-                                        <h2>No result</h2>
-                                    </div>
-                                </c:if>
-                                <c:forEach items="${requestScope.LIST}" var="movie" >
+                                <div class="col-sm-auto ml-auto mr-auto text-center title">
+                                    <!--<h2>Choose movie</h2>--> 
+                                    <ul class="nav nav-pills nav-pills-primary" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" data-toggle="tab" role="tablist">
+                                                All
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" role="tablist">
+                                                Action
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" role="tablist">
+                                                Horror
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" role="tablist">
+                                                Comedy
+                                            </a>
+                                        </li>
+                                         <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" role="tablist">
+                                                Animation
+                                            </a>
+                                        </li>
+                                    </ul>
 
-                                    <div class="col-md-3">
-                                        <div class="card card-blog card-plain text-center">
-                                            <div class="card-image">
+                                </div>
+                            </div>
 
-                                                <img class="img img-raised" src="${movie.image}">
 
-                                            </div>
-                                            <div class="card-body">
+                            <div class="article "> 
+                                <div class="row movie-list">
+                                    <c:if test="${empty requestScope.LIST}">
+                                        <div class="col-md-6 ml-auto mr-auto text-center title">
+                                            <h2>No result</h2>
+                                        </div>
+                                    </c:if>
 
-                                                <span class="card-title">${movie.title}</span>
+                                    <c:forEach items="${requestScope.LIST}" var="movie">
+                                        <article class="col-md-3 movie-item" data-category="${movie.category}">
+                                            <div class="card card-blog card-plain text-center">
+                                                <div class="card-image">
 
-                                            </div>
+                                                    <img class="img img-raised" src="${movie.image}">
 
-                                            <!-- Large modal -->
-                                            <button type="button" class="btn btn-primary btn-round btn-block" data-backdrop="true" data-keyboard="true" data-toggle="modal"
-                                                    data-target="#movieID-${movie.id}"><i class="fa fa-eye"></i></button>
+                                                </div>
+                                                <div class="card-body">
 
-                                            <div id="movieID-${movie.id}" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-                                                <div class="modal-dialog wide-screen">
-                                                    <div class="modal-content wide-screen">
-                                                        <iframe src="${movie.link}"
-                                                                allowfullscreen></iframe>
+                                                    <span class="card-title">${movie.title}</span>
+
+                                                </div>
+
+                                                <!-- Large modal -->
+                                                <button type="button" class="btn btn-primary btn-round btn-block" data-backdrop="true" data-keyboard="true" data-toggle="modal"
+                                                        data-target="#movieID-${movie.id}"><i class="fa fa-eye"></i></button>
+
+                                                <div id="movieID-${movie.id}" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                                                    <div class="modal-dialog wide-screen">
+                                                        <div class="modal-content wide-screen">
+                                                            <iframe src="${movie.link}"
+                                                                    allowfullscreen></iframe>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                  
-                                        </div>
-                                    </div>
-                                </c:forEach>
 
+                                            </div>
+                                        </article>
+                                    </c:forEach>
+
+                                </div>
                             </div>
                         </div>
-                        <hr>
-                        <br />
-                        <br />
+
 
 
                     </div>
                 </div>
             </div>
         </div>
-
 
 
         <footer class="footer  footer-gray footer-white ">
@@ -186,5 +226,6 @@
 
         <!--  Plugin for presentation page - isometric cards  -->
         <script src="assets/js/plugins/presentation-page/main.js"></script>
+        <script src="assets/js/gallery-filter.js"></script>
     </body>
 </html>
