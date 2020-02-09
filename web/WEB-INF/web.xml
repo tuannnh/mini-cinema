@@ -32,4 +32,6 @@
     <welcome-file-list>
         <welcome-file>ListMovie</welcome-file>
     </welcome-file-list>
+    
+    <request-character-encoding>UTF-8</request-character-encoding>
 </web-app>

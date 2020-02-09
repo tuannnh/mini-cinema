@@ -7,10 +7,13 @@ package controllers;
 
 import daos.MovieDAO;
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 
 /**
  *
@@ -34,6 +37,10 @@ public class AddMovie extends HttpServlet {
             String image = request.getParameter("image");
             String link = request.getParameter("link");
             String category = request.getParameter("category");
+   
+            title = URLEncoder.encode(title, "ISO-8859-1");
+            title = URLDecoder.decode(title, "UTF-8"); 
+            System.out.println(title);
             MovieDAO dao = new MovieDAO();
             dao.addMovie(title, image, link, category);
         } catch (Exception e) {

@@ -5,10 +5,14 @@
     <class>entities.Movie</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://maimien.me:3306/MovieDB?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://maimien.me:3306/MovieDB?useUnicode=yes&amp;characterEncoding=UTF-8"/>
       <property name="javax.persistence.jdbc.user" value="hungtuan"/>
-      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.password" value="1234@Abcd"/>
+      <property name="autoReconnect" value="true"/>
+      <property name="useUnicode" value="true"/>
+      <property name="characterEncoding" value="UTF-8"/>
+      
     </properties>
   </persistence-unit>
 </persistence>
