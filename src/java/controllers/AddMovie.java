@@ -5,20 +5,32 @@
  */
 package controllers;
 
+import com.cloudinary.*;
+import com.cloudinary.utils.ObjectUtils;
 import daos.MovieDAO;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.Map;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import javax.servlet.http.Part;
 
 /**
  *
  * @author tuannnh
  */
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 10, // 10 MB 
+        maxFileSize = 1024 * 1024 * 50, // 50 MB
+        maxRequestSize = 1024 * 1024 * 100)   	// 100 MB
 public class AddMovie extends HttpServlet {
 
     /**
@@ -35,19 +47,56 @@ public class AddMovie extends HttpServlet {
         try {
             String title = request.getParameter("title");
             String image = request.getParameter("image");
-            String link = request.getParameter("link");
+//            String link = request.getParameter("link");
+            String link =  saveImgHttpServletRequest(request, response, title);
             String category = request.getParameter("category");
-   
+
             title = URLEncoder.encode(title, "ISO-8859-1");
-            title = URLDecoder.decode(title, "UTF-8"); 
-            System.out.println(title);
-            MovieDAO dao = new MovieDAO();
-            dao.addMovie(title, image, link, category);
+            title = URLDecoder.decode(title, "UTF-8");
+            
+            System.out.println("Link: "+link);
+            
+           
+//            MovieDAO dao = new MovieDAO();
+//            dao.addMovie(title, image, link, category);
         } catch (Exception e) {
             System.out.println(e);
         } finally {
             response.sendRedirect("ListMovie");
         }
+    }
+
+    private String saveImgHttpServletRequest(HttpServletRequest request, HttpServletResponse response, String title)
+            throws ServletException, IOException {
+        String url;
+        Part filePart = request.getPart("upload"); // Retrieves <input type="file" name="upload">
+        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
+        String docBase = request.getServletContext().getRealPath("");
+        File savePath = new File(docBase + File.separator + "resources");
+        if (!savePath.exists()) {
+            savePath.mkdir();
+        }
+        File upload = new File(savePath, fileName);
+
+        try (InputStream fileContent = filePart.getInputStream()) {
+            Files.copy(fileContent, upload.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        }
+
+        System.out.println(upload.toPath());
+        System.out.println(upload.getAbsolutePath());
+
+        Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
+                "cloud_name", "maimien",
+                "api_key", "696888872421777",
+                "api_secret", "tjySCewrBowmT002nbJCCdl-12Q"));
+
+        Map params = ObjectUtils.asMap("public_id", title);
+        Map uploadResult = cloudinary.uploader().upload(upload, params);
+        System.out.println("Upload result: " + uploadResult.get("url"));
+        url = cloudinary.url().format("jpg")
+                .transformation(new Transformation().width(350).height(518).crop("fit"))
+                .generate(title);
+        return url;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

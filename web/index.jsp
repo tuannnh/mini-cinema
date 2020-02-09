@@ -65,13 +65,14 @@
                 <div class="modal-content ">
 
                     <div class="container pt-4 pr-4 pl-4 pb-4">
-                        <form action="AddMovie" method="POST" class="login-form ">
+                        <form action="AddMovie" method="POST" class="login-form" enctype="multipart/form-data">
                             <label>Title</label>
-                            <input name="title" type="text" class="form-control" placeholder="Title"><br/>
+                            <input name="title" type="text" class="form-control" placeholder="Title" value="movie-title"><br/>
                             <label>Image URL:</label>
-                            <input name="image" type="text" class="form-control" placeholder="https://"><br/>
+                            <!--<input name="image" type="text" class="form-control" placeholder="https://"><br/>-->
+                            <input type="file" class="form-control" name="upload" /><br/>
                             <label>Movie Direct Link</label>
-                            <input name="link" type="text" class="form-control " placeholder="https://"><br/>
+                            <input name="link" type="text" class="form-control " placeholder="https://" value="123"><br/>
                             <label>Category</label>
                             <select name="category">
                                 <option value="Action">Action</option>
