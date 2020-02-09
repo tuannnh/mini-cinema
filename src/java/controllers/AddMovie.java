@@ -54,7 +54,7 @@ public class AddMovie extends HttpServlet {
             title = URLDecoder.decode(title, "UTF-8");
 
             MovieDAO dao = new MovieDAO();
-            dao.addMovie(title, image, link, category);
+            dao.addMovie(title, image, link.replace("/view", "/preview"), category);
         } catch (Exception e) {
             System.out.println(e);
         } finally {
