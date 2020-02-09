@@ -46,19 +46,15 @@ public class AddMovie extends HttpServlet {
             throws ServletException, IOException {
         try {
             String title = request.getParameter("title");
-            String image = request.getParameter("image");
-//            String link = request.getParameter("link");
-            String link =  saveImgHttpServletRequest(request, response, title);
+            String link = request.getParameter("link");
+            String image = saveImgHttpServletRequest(request, response, title);
             String category = request.getParameter("category");
 
             title = URLEncoder.encode(title, "ISO-8859-1");
             title = URLDecoder.decode(title, "UTF-8");
-            
-            System.out.println("Link: "+link);
-            
-           
-//            MovieDAO dao = new MovieDAO();
-//            dao.addMovie(title, image, link, category);
+
+            MovieDAO dao = new MovieDAO();
+            dao.addMovie(title, image, link, category);
         } catch (Exception e) {
             System.out.println(e);
         } finally {
@@ -82,21 +78,15 @@ public class AddMovie extends HttpServlet {
             Files.copy(fileContent, upload.toPath(), StandardCopyOption.REPLACE_EXISTING);
         }
 
-        System.out.println(upload.toPath());
-        System.out.println(upload.getAbsolutePath());
-
         Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
                 "cloud_name", "maimien",
                 "api_key", "696888872421777",
                 "api_secret", "tjySCewrBowmT002nbJCCdl-12Q"));
 
-        Map params = ObjectUtils.asMap("public_id", title);
-        Map uploadResult = cloudinary.uploader().upload(upload, params);
-        System.out.println("Upload result: " + uploadResult.get("url"));
-        url = cloudinary.url().format("jpg")
-                .transformation(new Transformation().width(350).height(518).crop("fit"))
-                .generate(title);
-        return url;
+        Map option = ObjectUtils.asMap("public_id", title, "transformation", new Transformation().width(350).height(518).crop("limit"));
+        Map uploadResult = cloudinary.uploader().upload(upload, option);
+        url = (String) uploadResult.get("url");
+        return url.replace("http://", "https://");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
