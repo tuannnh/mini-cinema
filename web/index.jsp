@@ -132,7 +132,7 @@
                                                 Comedy
                                             </a>
                                         </li>
-                                         <li class="nav-item">
+                                        <li class="nav-item">
                                             <a class="nav-link" data-toggle="tab" role="tablist">
                                                 Animation
                                             </a>
@@ -180,6 +180,8 @@
 
                                             </div>
                                         </article>
+                                        <br/>
+                                        <br/>
                                     </c:forEach>
 
                                 </div>
