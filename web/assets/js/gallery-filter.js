@@ -1,8 +1,7 @@
 //Filter News
 $('.nav-link').click(function () {
     var filter = $(this).text();
-    filter = $.trim(filter)
-    console.log(filter);
+    filter = $.trim(filter);
     filterList(filter);
 });
 
@@ -12,7 +11,6 @@ function filterList(value) {
     $(list).fadeOut("fast");
     console.log('Value =' + value);
     if (value == 'All') {
-        console.log(value === "All")
         $(".movie-list").find("article").each(function (i) {
             $(this).delay(200).slideDown("fast");
         });

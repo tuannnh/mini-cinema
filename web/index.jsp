@@ -10,8 +10,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="apple-touch-icon" sizes="76x76" href="assets/img/favicon.png">
-        <link rel="icon" type="image/png" href="assets/img/favicon.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="assets/img/logo.png">
+        <link rel="icon" type="image/png" href="assets/img/logo.png">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <title>
             Bi's Cinema
@@ -36,7 +36,7 @@
             <div class="container">
                 <div class="navbar-translate">
                     <a class="navbar-brand" href="ListMovie" rel="tooltip"
-                       title="Bi's Cinema" data-placement="bottom">
+                       title="Bi's Cinema" data-placement="bottom"><img src="assets/img/logo.png" width="50"/>
                         Bi's Cinema
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -167,7 +167,7 @@
                                                 </div>
 
                                                 <!-- Large modal -->
-                                                <button type="button" class="btn btn-primary btn-round btn-block" data-backdrop="true" data-keyboard="true" data-toggle="modal"
+                                                <button type="button" class="btn btn-primary btn-round btn-block btn-view" data-backdrop="true" data-keyboard="true" data-toggle="modal"
                                                         data-target="#movieID-${movie.id}"><i class="fa fa-eye"></i></button>
 
                                                 <div id="movieID-${movie.id}" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">

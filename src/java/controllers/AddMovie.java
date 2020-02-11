@@ -83,9 +83,10 @@ public class AddMovie extends HttpServlet {
                 "api_key", "696888872421777",
                 "api_secret", "tjySCewrBowmT002nbJCCdl-12Q"));
 
-        Map option = ObjectUtils.asMap("public_id", title, "transformation", new Transformation().width(350).height(518).crop("limit"));
+        Map option = ObjectUtils.asMap("public_id", title, "transformation", new Transformation().width(350).height(518).crop("scale"));
         Map uploadResult = cloudinary.uploader().upload(upload, option);
         url = (String) uploadResult.get("url");
+        upload.delete();
         return url.replace("http://", "https://");
     }
 
